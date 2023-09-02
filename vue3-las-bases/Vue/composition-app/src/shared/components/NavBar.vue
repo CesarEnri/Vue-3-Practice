@@ -4,22 +4,26 @@ import type {RouterLink} from "@/router/list-routes";
 
 interface Props{
   title?: string;
-  links: RouterLink[];
+  links: RouterLink[],
+  isSecondary?: boolean,
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: "BeliVGamesApp"
-  
+  title: "BeliVGamesApp",
+  isSecondary: true,
 });
 
 </script>
 
-<template>
+<template v-if="$props.isSecondary">
 <nav>
+  <template >
+    
   <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="25" height="25" />
 <!--  <span v-if="$props.title">{{$props.title}}</span>-->
   <span >{{$props.title}}</span>
-  
+
+  </template>
   
   <RouterLink  
       v-for="link of $props.links"
@@ -49,7 +53,7 @@ nav {
   margin-top: 2rem;
 }
 
-nav a.router-link-exact-active {
+nav a.router-link-active {
   color: var(--color-text);
 }
 

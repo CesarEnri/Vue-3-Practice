@@ -1,11 +1,37 @@
 ﻿
 <script setup lang="ts">
 
+import {RouterView} from "vue-router";
+import NavBar from "@/shared/components/NavBar.vue";
+import {pokemonRoute} from "@/pokemons/router";
+import type {RouterLink} from "@/router/list-routes";
+
+const routerLinks: RouterLink[] = pokemonRoute.children?.map(({name, path, props})=>{
+  
+  
+  return {
+    name: name?.toString() ?? '',
+    path: path,
+    title: (props as {title: string}).title,
+  }
+}) || [];
+
+
 </script>
 
 <template>
+
+  <NavBar :links="routerLinks" is-secondary/>
   <div>
-    <h1>Pokemon Layout</h1>
+<!--   <suspense>-->
+     <RouterView /> 
+     
+<!--     <template #fallback>-->
+<!--       Loading...-->
+<!--       -->
+<!--     </template>-->
+<!--   </suspense>-->
+    
   </div>
 </template>
 
