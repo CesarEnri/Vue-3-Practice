@@ -1,4 +1,4 @@
-﻿import {computed} from "vue";
+﻿import {computed, watchEffect} from "vue";
 import {getPokemons} from "../helpers/get-pokemons";
 import type {Pokemon} from "../interfaces";
 import {useQuery} from "@tanstack/vue-query";
@@ -8,8 +8,17 @@ import {useQuery} from "@tanstack/vue-query";
      
      const {isLoading , data:pokemons, isError, error } = useQuery(
          ['pokemons'],
-         getPokemons
+         getPokemons,
+         {
+             retry: 0
+             
+         }
      );
+     
+     watchEffect(() =>
+     {
+         console.log('isLoading',isError.value);
+     })
      
     return{
         //Properties
