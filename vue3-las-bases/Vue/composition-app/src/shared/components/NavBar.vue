@@ -1,6 +1,7 @@
 ﻿<script setup lang="ts">
 
 import type {RouterLink} from "@/router/list-routes";
+import {computed, toRef} from "vue";
 
 interface Props{
   title?: string;
@@ -12,6 +13,10 @@ const props = withDefaults(defineProps<Props>(), {
   title: "BeliVGamesApp",
   isSecondary: true,
 });
+
+const links = computed(() => props.links.filter(link => link.visible))
+//const links = toRef(props, 'links');
+//const links = props.links;
 
 </script>
 
@@ -26,7 +31,7 @@ const props = withDefaults(defineProps<Props>(), {
   </template>
   
   <RouterLink  
-      v-for="link of $props.links"
+      v-for="link of links"
       :key="link.path"
       :to="link.path">{{link.title}}</RouterLink>
   
